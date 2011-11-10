@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<project name="MegaLoader">
+  <target name="AntTrap" description="Generate an Ant build file from this Rake file">
+    <exec executable="rake.bat">
+      <arg value="-v"/>
+      <arg value="AntTrap"/>
+    </exec>
+  </target>
+  <target name="clean" description="">
+    <exec executable="rake.bat">
+      <arg value="-v"/>
+      <arg value="clean"/>
+    </exec>
+  </target>
+  <target name="compile" description="Compiles all Java sources files in the project">
+    <exec executable="rake.bat">
+      <arg value="-v"/>
+      <arg value="compile"/>
+    </exec>
+  </target>
+  <target name="default" description="">
+    <exec executable="rake.bat">
+      <arg value="-v"/>
+      <arg value="default"/>
+    </exec>
+  </target>
+  <target name="jar" description="">
+    <exec executable="rake.bat">
+      <arg value="-v"/>
+      <arg value="jar"/>
+    </exec>
+  </target>
+</project>

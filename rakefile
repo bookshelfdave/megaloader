@@ -1,0 +1,101 @@
+#/* ***** BEGIN LICENSE BLOCK *****
+# * Version: MPL 1.1
+# * Copyright (C) 2011- Dave Parfitt. All Rights Reserved.
+# *
+# * The contents of this file are subject to the Mozilla Public License Version
+# * 1.1 (the "License"); you may not use this file except in compliance with
+# * the License. You may obtain a copy of the License at
+# * http://www.mozilla.org/MPL/
+# *
+# * Software distributed under the License is distributed on an "AS IS" basis,
+# * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+# * for the specific language governing rights and limitations under the
+# * License.
+# *
+# * ***** END LICENSE BLOCK ***** */
+
+# add support for Ruby Gems:
+#export RUBYOPT=rubygems
+# or
+#require 'rubygems'
+#https://gist.github.com/54177
+
+require 'anttrap'
+require 'rbconfig'
+
+# the name of the Ant project.
+# adding a timestamp may be helpful to you
+AntTrap.antproject="MegaLoader #{Time.new}"
+
+# Generate a file named build.xml
+AntTrap.antfile="build.xml"
+
+# path to the rake binary
+# the default is rake, but you can use what you like here
+if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/ then
+  AntTrap.rake = 'rake.bat'
+end
+
+# additional arguments to pass to rake
+AntTrap.rakeargs = ["-v"]
+
+task :default => [:jar]
+
+JAVA_HOME=ENV['JAVA_HOME']
+JAVAC = "#{JAVA_HOME}//bin//javac"
+JAR = "#{JAVA_HOME}//bin//jar"
+
+sources = FileList['src/**/*.java']
+classes = sources.ext('class')
+jars = FileList['lib/**/*.jar']
+
+desc "Compiles all Java sources files in the project"
+task :compile => sources do
+
+  begin
+    mkdir "dist"
+  rescue
+    ""
+  end
+  
+  # see the javac command line docs regarding @ syntax for javac
+  File.open("javac.classes","w+") do |f|
+    sources.each {|t| f.puts "#{t}" }
+  end
+
+  File.open("javac.options","w+") do |f|
+    f.puts "-d dist"
+    f.puts "-g"
+    f.puts '-sourcepath src'
+  end
+  cp = jars.join(";")
+  command =<<EOF
+#{JAVAC} -J-Xms256m -J-Xmx256m -classpath #{cp} @javac.options @javac.classes
+EOF
+  sh command
+end
+
+task :jar => :compile do
+  puts "Building Jar"
+  cd "dist"  
+  sh "#{JAR} xf ..\\lib\\javassist.jar"
+  cd '..'
+  cp('reload.properties','.\\dist')
+  cp('.\lib\Javassist_Readme.html','.\\dist')
+  cp('License.html','.\\dist')
+  cd "dist"  
+  begin	
+  	mkdir "META-INF"
+  rescue	
+    puts ""
+  end		
+  cp('..\MANIFEST.MF', 'META-INF')
+
+  sh "#{JAR} cfm ..\\MegaLoad.jar .\\META-INF\\MANIFEST.MF *.*"
+  puts "!!!!"
+  puts "Modify reload.properties inside MegaLoad.jar to suit your environment!"
+end
+
+task :clean do
+  rmtree 'dist'
+end
