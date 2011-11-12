@@ -24,6 +24,7 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtConstructor;
 
+
 public class MegaTransformer implements ClassFileTransformer {
 	private String classLoaderName;
 	static {

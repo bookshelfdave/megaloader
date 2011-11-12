@@ -27,7 +27,6 @@ import javassist.CtClass;
 import javassist.CtMethod;
 
 // Unused... 
-
 public class UltraTransformer implements ClassFileTransformer {	
 	private String pkgs[];
 	private String[] classpath;

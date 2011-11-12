@@ -54,7 +54,6 @@ public class PathCache extends Thread {
 		return running;
 	}
 
-
 	public void setRunning(boolean running) {
 		this.running = running;
 	}

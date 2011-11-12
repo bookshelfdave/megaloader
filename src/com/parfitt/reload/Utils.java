@@ -18,6 +18,7 @@ package com.parfitt.reload;
 import java.io.File;
 import java.io.FileInputStream;
 
+
 public class Utils {
 	public static byte[] getFileBytes(File f) throws Exception {
 	    FileInputStream fis = new FileInputStream(f);

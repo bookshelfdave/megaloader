@@ -33,6 +33,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 // The quality isn't typical of what I normally write in Java!
 // That being said... it does work nicely :-)
 // 
+
 public class MegaLoader   {
 	public static final String version = "0.9 \"Post-Zilla\"";
 	public static boolean running = true; 
