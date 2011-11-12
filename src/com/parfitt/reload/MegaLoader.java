@@ -37,7 +37,6 @@ public class MegaLoader   {
 	public static final String version = "0.9 \"Post-Zilla\"";
 	public static boolean running = true; 
 	public static Instrumentation sys;	
-	//public static Map<String,Long> cachedClasses = new HashMap<String,Long>();
 	public static String[] rootDirNames = null;	
 	public static String[] packages = null;
 	private static BlockingQueue<File> reloadQueue = new LinkedBlockingQueue<File>(); 
@@ -77,10 +76,10 @@ public class MegaLoader   {
 			}
 		}		
 		
-//		String rootchunks[] = rootDirName.split("\\\\");	
-//		String chunks[] = f.getAbsolutePath().split("\\\\");
-		String rootchunks[] = rootDirName.split(File.pathSeparator);	
-		String chunks[] = f.getAbsolutePath().split(File.pathSeparator);
+		//String rootchunks[] = rootDirName.split("\\\\");	
+		//String chunks[] = f.getAbsolutePath().split("\\\\");
+		String rootchunks[] = rootDirName.split("\\" + File.separator);	
+		String chunks[] = f.getAbsolutePath().split("\\" + File.separator);
 
 		int takelast = chunks.length - rootchunks.length-1;		
 		StringBuffer fqcn = new StringBuffer();
@@ -244,6 +243,7 @@ public class MegaLoader   {
 			for(String filename:updates) {
 				File f = new File(filename);
 				String cname = pathToClassname(f);			
+				
 				if(!f.getName().endsWith(".class")) {
 					return;
 				}		
@@ -251,15 +251,11 @@ public class MegaLoader   {
 				for(String pkg: packages) {
 					if(cname.startsWith(pkg)){ 
 						validPackage = true;
-					}
+					} 
 				}
 				if(!validPackage) {
 					return;
 				}
-	
-//				if(!cachedClasses.containsKey(cname)) {															
-//					cachedClasses.put(cname, new Long(0));
-//				}
 				
 				try {			
 					reloadQueue.put(f);
