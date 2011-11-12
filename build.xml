@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <project name="MegaLoader">
+
   <target name="AntTrap" description="Generate an Ant build file from this Rake file">
     <exec executable="rake.bat">
       <arg value="-v"/>
