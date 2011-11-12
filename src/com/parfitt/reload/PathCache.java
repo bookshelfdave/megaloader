@@ -59,7 +59,6 @@ public class PathCache extends Thread {
 		this.running = running;
 	}
 
-
 	public void initialize() {
 		List<String> allFiles = new ArrayList<String>();
 		walk(dir,allFiles);

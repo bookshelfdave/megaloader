@@ -21,7 +21,6 @@ import java.io.FileInputStream;
 public class Utils {
 	public static byte[] getFileBytes(File f) throws Exception {
 	    FileInputStream fis = new FileInputStream(f);
-	    
 	    // unsafe cast to int :-(
 	    byte[] bytes = new byte[(int)f.length()];
 
