@@ -1,6 +1,6 @@
 MegaLoader: A (hacked-together) Java class reloader.
 
-I built this tool to reload a custom service running inside of an app server that doesn't support class reloading. It works great (for my team and myself). It was originally developed using JDK1.5 on Windows. I'm guessing it will work with JDK1.6+ on any platform, but this has not been tested.
+I built this tool to reload a set of classes running inside of an app server that doesn't support class reloading (at least for what I'm doing). It works great (for my team and myself). It was originally developed using JDK1.5 on Windows. I'm guessing it will work with JDK1.6+ on any platform, but this has not been tested.
 
 Note: You can only change the contents of existing methods with MegaLoader. You can't add any new methods or properties without restarting :-(
 
