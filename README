@@ -1,13 +1,17 @@
 MegaLoader: A (hacked-together) Java class reloader.
 
-I built this tool to reload a set of classes running inside of an app server that doesn't support class reloading (at least for what I'm doing). It works great (for my team and myself). It was originally developed using JDK1.5 on Windows. I'm guessing it will work with JDK1.6+ on any platform, but this has not been tested.
+I built this tool to reload a set of classes running inside of an app server that doesn't support class reloading 
+(at least for what I'm doing). It works great (for my team and myself). It was originally developed using JDK1.5 
+on Windows. I'm guessing it will work with JDK1.6+ on any platform, but this has not been tested.
 
-Note: You can only change the contents of existing methods with MegaLoader. You can't add any new methods or properties without restarting :-(
+Note: You can only change the contents of existing methods with MegaLoader. You can't add any new methods or 
+properties without restarting :-(
 
 Also: If anyone ever finds this useful, let me know and I can clean the project up to make it more formal.
 
 To use:
-Download javassist.jar (http://www.csg.is.titech.ac.jp/~chiba/javassist/) and put it inside the .\lib directory off the root of this project.
+Download javassist.jar (http://www.csg.is.titech.ac.jp/~chiba/javassist/) and put it inside the .\lib 
+directory off the root of this project.
 
 YOU MUST MODIFY reload.properties LOCATED INSIDE OF THE JAR!
 
@@ -32,4 +36,13 @@ MegaLoad.jar is created.
 Add this to your call to java.exe:
   -noverify -javaagent:\path\to\MegaLoad.jar
 
-You should see MegaLoader starting up when your server starts. Each class that is being reloaded will display on System.out.
+You should see MegaLoader starting up when your server starts. Each class that is being reloaded will 
+display on System.out.
+
+
+How does it work?
+It's very simple. Whenever a custom class loader is loaded in, I use the Javassist library to rewrite the
+constructors to include a call to the static method com.parfitt.reload.MegaLoader.addClassLoader(this). 
+A thread is started that monitors a set of files for changes. If any changes are detected, redefine the class in 
+the cached class loader(s). Sure, it's no JRebel, but I really wrote it to satisfy my curiosity.
+
