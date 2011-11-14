@@ -9,14 +9,6 @@ Also: If anyone ever finds this useful, let me know and I can clean the project 
 To use:
 Download javassist.jar (http://www.csg.is.titech.ac.jp/~chiba/javassist/) and put it inside the .\lib directory off the root of this project.
 
-Build using:
-rake
-
-MegaLoad.jar is created.
-
-Add this to your call to java.exe:
-  -noverify -javaagent:\path\to\MegaLoad.jar
-
 YOU MUST MODIFY reload.properties LOCATED INSIDE OF THE JAR!
 
 The only properties available are:
@@ -32,4 +24,12 @@ class.loader.suffix=GenericClassLoader
 # You may need to modify this depending on which app server you are using.
 
 
+Build using:
+rake
 
+MegaLoad.jar is created.
+
+Add this to your call to java.exe:
+  -noverify -javaagent:\path\to\MegaLoad.jar
+
+You should see MegaLoader starting up when your server starts. Each class that is being reloaded will display on System.out.
