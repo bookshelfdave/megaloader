@@ -46,3 +46,7 @@ constructors to include a call to the static method com.parfitt.reload.MegaLoade
 A thread is started that monitors a set of files for changes. If any changes are detected, redefine the class in 
 the cached class loader(s). Sure, it's no JRebel, but I really wrote it to satisfy my curiosity.
 
+
+License
+
+http://www.apache.org/licenses/LICENSE-2.0.html
